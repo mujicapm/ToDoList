@@ -11,6 +11,7 @@
 # production
 /build
 src/MyName.js
+src/new_test
 
 # misc
 .DS_Store
