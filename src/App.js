@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import UserBar from './User/UserBar'
+import CreateToDoItem from './ToDos/CreateToDoItem'
+import ToDoList from './ToDos/ToDoList'
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const ToDoItems = [
+        {
+            title: "Task 1",
+            description: "Some text",
+            dateCreated: "5/10/2021"
+        },
+        {
+            title: "Task 2",
+            description: "Some text",
+            dateCreated: "6/10/2021"
+        },
+        {
+            title: "Task 3",
+            description: "Some text",
+            dateCreated: "8/8/2021"
+        },
+    ]
+    return (
+      <div>
+        <UserBar/>
+          <br/><br/><hr/><br/>
+          <CreateToDoItem/>
+          <ToDoList ToDoItems={ToDoItems}/>
+      </div>
+  )
 }
 
 export default App;
