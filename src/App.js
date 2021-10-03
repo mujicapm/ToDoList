@@ -1,9 +1,11 @@
+import React, {useState} from 'react'
 import UserBar from './User/UserBar'
 import CreateToDoItem from './ToDos/CreateToDoItem'
 import ToDoList from './ToDos/ToDoList'
 
 
 function App() {
+    const [user, setUser] = useState('');
     const initialToDoItems = [
         {
             title: "Task 1",
@@ -21,12 +23,15 @@ function App() {
             dateCreated: "8/8/2021"
         },
     ]
+
+    const [ ToDoItems, setToDoItems ] = useState(initialToDoItems)
+
     return (
         <div>
-            <UserBar/>
+            <UserBar user={user} setUser={setUser}/>
             <br/><br/><hr/><br/>
-            <CreateToDoItem/>
-            <ToDoList ToDoItems={initialToDoItems}/>
+            {user && <CreateToDoItem ToDoItems={ToDoItems} setToDoItems={setToDoItems}/>}
+            <ToDoList ToDoItems={ToDoItems}/>
         </div>
     )
 }
