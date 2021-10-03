@@ -1,24 +1,31 @@
 import React, {useState} from 'react'
-import {useRef} from 'react'
+import {intlFormat} from 'date-fns'
 
 export default function CreatePost ({ToDoItems, setToDoItems}) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const createTimeStamp = useRef(null);
+    const [dateCreated, setDateCreated] = useState('')
 
     function handleTitle(evt) {setTitle(evt.target.value)}
     function handleDescription(evt) {setDescription(evt.target.value)}
+    function handleDateCreated() {
+        const tmpDate = intlFormat(Date.now(),{
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric'
+        })
+        setDateCreated(tmpDate)
+    }
 
     function handleCreate() {
-        const newToDoItem = {title, description, createTimeStamp}
+        const newToDoItem = {title, description, dateCreated}
         setToDoItems([newToDoItem, ...ToDoItems])
     }
 
     return (
         <form onSubmit={e => {
             e.preventDefault();
-            createTimeStamp.current = Date.now();
-            handleCreate()
+            handleCreate();
         }}>
             <div>
                 <label htmlFor="create-title">Title:</label>
@@ -28,8 +35,7 @@ export default function CreatePost ({ToDoItems, setToDoItems}) {
                 <label htmlFor="create-description">Description:</label>
                 <input type="textarea" value={description} onChange={handleDescription} name="create-description" id="create-description" rows="5" cols="33"/>
             </div>
-            <input ref = {createTimeStamp} type="hidden" name="create-timestamp" id="create-timestamp"/>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Create" onClick={handleDateCreated}/>
         </form>
     )
 }
