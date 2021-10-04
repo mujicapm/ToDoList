@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {intlFormat} from 'date-fns'
 
-export default function CreatePost ({ToDoItems, setToDoItems}) {
+export default function CreatePost ({ToDoItems, dispatchToDo}) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [dateCreated, setDateCreated] = useState('')
@@ -17,15 +17,16 @@ export default function CreatePost ({ToDoItems, setToDoItems}) {
         setDateCreated(tmpDate)
     }
 
-    function handleCreate() {
-        const newToDoItem = {title, description, dateCreated}
-        setToDoItems([newToDoItem, ...ToDoItems])
-    }
+    // function handleCreate() {
+    //     // const newToDoItem = {title, description, dateCreated}
+    //     // setToDoItems([newToDoItem, ...ToDoItems])
+    //
+    // }
 
     return (
         <form onSubmit={e => {
             e.preventDefault();
-            handleCreate();
+            dispatchToDo({type: 'CREATE_TODO', title, description, dateCreated});
         }}>
             <div>
                 <label htmlFor="create-title">Title:</label>
