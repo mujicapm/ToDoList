@@ -15,12 +15,15 @@ export default function CreatePost ({ToDoItems, dispatchToDo}) {
         setDateCreated(handleDateCreated())
         handleUUID();
     }
+    function handleSubmit(e){
+        e.preventDefault();
+        dispatchToDo({type: 'CREATE_TODO', UUID, title, description, dateCreated});
+        setTitle("");
+        setDescription("");
+    }
 
     return (
-        <form onSubmit={e => {
-            e.preventDefault();
-            dispatchToDo({type: 'CREATE_TODO', UUID, title, description, dateCreated});
-        }}>
+        <form onSubmit={e => {handleSubmit(e)}}>
             <div>
                 <label htmlFor="create-title">Title:</label>
                 <input type="text" value={title} onChange={handleTitle} name="create-title" id="create-title" />
