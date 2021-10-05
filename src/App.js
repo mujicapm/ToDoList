@@ -2,6 +2,7 @@ import React, {useReducer} from 'react'
 import UserBar from './User/UserBar'
 import CreateToDoItem from './ToDos/CreateToDoItem'
 import ToDoList from './ToDos/ToDoList'
+import {handleDateCreated} from './HandleDate'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         }
     }
 
+
     function toDoReducer (state, action) {
         switch (action.type) {
             case 'CREATE_TODO':
@@ -59,13 +61,21 @@ function App() {
             case 'TOGGLE_TODO':
                 // const updatedList = state.filter((toDoItem) => {return toDoItem.UUID === action.UUID;}).map((toDoItem) =>{return toDoItem.isComplete = true;});
                 // const updatedList = state.filter((toDoItem) => {return toDoItem.UUID === action.UUID}))
-                return state.map(toDoItem => ( toDoItem.UUID === action.UUID ) ?
-                    {...toDoItem,
+                if (action.isComplete) {
+                    return state.map(toDoItem => ( toDoItem.UUID === action.UUID ) ?
+                        {...toDoItem,
                         isComplete: !action.isComplete,
-                        dateComplete: '5/10/2015'
-                    }
-                     : toDoItem
-                );
+                        dateComplete: ''
+                        }
+                        : toDoItem
+                );} else {
+                    return state.map(toDoItem => ( toDoItem.UUID === action.UUID ) ?
+                        {...toDoItem,
+                            isComplete: !action.isComplete,
+                            dateComplete: handleDateCreated()
+                        }
+                        : toDoItem
+                    )}
             // case 'DELETE_TODO':
             //     return ''
             default:

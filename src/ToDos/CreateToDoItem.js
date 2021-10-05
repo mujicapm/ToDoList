@@ -1,29 +1,18 @@
 import React, {useState} from 'react'
-import {intlFormat} from 'date-fns'
 import { v4 } from 'uuid';
+import {handleDateCreated} from '../HandleDate'
 
 export default function CreatePost ({ToDoItems, dispatchToDo}) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [dateCreated, setDateCreated] = useState('')
     const [UUID, setUUID] = useState('')
-    const [dateComplete, setDateComplete] = useState('')
 
     function handleTitle(evt) {setTitle(evt.target.value)}
     function handleDescription(evt) {setDescription(evt.target.value)}
-    function handleDateCreated() {
-        const tmpDate = intlFormat(Date.now(),{
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric'
-        })
-        setDateCreated(tmpDate)
-    }
-    function handleUUID() {
-        setUUID(v4());
-    }
+    function handleUUID() {setUUID(v4());}
     function handleOnClick() {
-        handleDateCreated();
+        setDateCreated(handleDateCreated())
         handleUUID();
     }
 
