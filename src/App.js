@@ -55,12 +55,11 @@ function App() {
                     title: action.title,
                     description: action.description,
                     dateCreated: action.dateCreated,
-                    isComplete: false
+                    isComplete: false,
+                    dateComplete: ''
                 }
                 return [ newPost, ...state ]
             case 'TOGGLE_TODO':
-                // const updatedList = state.filter((toDoItem) => {return toDoItem.UUID === action.UUID;}).map((toDoItem) =>{return toDoItem.isComplete = true;});
-                // const updatedList = state.filter((toDoItem) => {return toDoItem.UUID === action.UUID}))
                 if (action.isComplete) {
                     return state.map(toDoItem => ( toDoItem.UUID === action.UUID ) ?
                         {...toDoItem,
@@ -76,8 +75,9 @@ function App() {
                         }
                         : toDoItem
                     )}
-            // case 'DELETE_TODO':
-            //     return ''
+            case 'DELETE_TODO':
+                const newList = state.filter(toDoItem => ( toDoItem.UUID !== action.UUID ));
+                return newList
             default:
                 return state;
         }
