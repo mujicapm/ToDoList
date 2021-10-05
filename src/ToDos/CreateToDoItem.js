@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import {intlFormat} from 'date-fns'
+import { v4 } from 'uuid';
 
 export default function CreatePost ({ToDoItems, dispatchToDo}) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [dateCreated, setDateCreated] = useState('')
+    const [UUID, setUUID] = useState('')
+    const [dateComplete, setDateComplete] = useState('')
 
     function handleTitle(evt) {setTitle(evt.target.value)}
     function handleDescription(evt) {setDescription(evt.target.value)}
@@ -16,17 +19,18 @@ export default function CreatePost ({ToDoItems, dispatchToDo}) {
         })
         setDateCreated(tmpDate)
     }
-
-    // function handleCreate() {
-    //     // const newToDoItem = {title, description, dateCreated}
-    //     // setToDoItems([newToDoItem, ...ToDoItems])
-    //
-    // }
+    function handleUUID() {
+        setUUID(v4());
+    }
+    function handleOnClick() {
+        handleDateCreated();
+        handleUUID();
+    }
 
     return (
         <form onSubmit={e => {
             e.preventDefault();
-            dispatchToDo({type: 'CREATE_TODO', title, description, dateCreated});
+            dispatchToDo({type: 'CREATE_TODO', UUID, title, description, dateCreated});
         }}>
             <div>
                 <label htmlFor="create-title">Title:</label>
@@ -36,7 +40,7 @@ export default function CreatePost ({ToDoItems, dispatchToDo}) {
                 <label htmlFor="create-description">Description:</label>
                 <input type="textarea" value={description} onChange={handleDescription} name="create-description" id="create-description" rows="5" cols="33"/>
             </div>
-            <input type="submit" value="Create" onClick={handleDateCreated}/>
+            <input type="submit" value="Create" onClick={handleOnClick} name="create"/>
         </form>
     )
 }
