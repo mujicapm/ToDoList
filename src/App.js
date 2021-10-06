@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import UserBar from "./User/UserBar";
 import CreateToDoItem from "./ToDos/CreateToDoItem";
 import ToDoList from "./ToDos/ToDoList";
-import { handleDateCreated } from "./HandleDate";
+import handleDateCreated from "./HandleDate";
 
 function App() {
   const initialToDoItems = [

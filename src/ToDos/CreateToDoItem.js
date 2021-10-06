@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
-import { handleDateCreated } from "../HandleDate";
+import handleDateCreated from "../HandleDate";
 
 export default function CreatePost({ ToDoItems, dispatchToDo }) {
   const [title, setTitle] = useState("");
